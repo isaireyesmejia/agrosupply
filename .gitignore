@@ -1,0 +1,47 @@
+# ============================
+# Laravel
+# ============================
+/vendor
+/node_modules
+/public/hot
+/public/storage
+/public/build
+/storage/*.key
+/storage/pail
+/bootstrap/ssr
+/bootstrap/cache/*.php
+.env
+.env.backup
+.env.production
+.phpunit.result.cache
+Homestead.json
+Homestead.yaml
+auth.json
+npm-debug.log
+yarn-error.log
+
+# ============================
+# Composer
+# ============================
+composer.phar
+
+# ============================
+# Testing
+# ============================
+/coverage
+/.phpunit.cache
+
+# ============================
+# Editor / OS
+# ============================
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+*.suo
+*.user
+
+# ============================
+# Logs
+# ============================
+/storage/logs/*.log
