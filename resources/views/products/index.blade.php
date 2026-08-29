@@ -15,9 +15,11 @@
                     </div>
                 @endif
 
-                <a href="{{ route('products.create') }}" class="inline-block mb-4 px-4 py-2 bg-gray-800 text-white rounded">
-                    Nuevo Producto
-                </a>
+                @can('products.manage')
+    <a href="{{ route('products.create') }}" class="inline-block mb-4 px-4 py-2 bg-gray-800 text-white rounded">
+        Nuevo Producto
+    </a>
+@endcan
 
                 <table class="w-full text-left border-collapse">
                     <thead>
@@ -37,13 +39,15 @@
                                 <td class="py-2">${{ number_format($product->price, 2) }}</td>
                                 <td class="py-2">{{ $product->stock }}</td>
                                 <td class="py-2 space-x-2">
-                                    <a href="{{ route('products.edit', $product->id) }}" class="text-blue-600">Editar</a>
-                                    <form action="{{ route('products.destroy', $product->id) }}" method="POST" class="inline" onsubmit="return confirm('¿Eliminar este producto?');">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="text-red-600">Eliminar</button>
-                                    </form>
-                                </td>
+    @can('products.manage')
+        <a href="{{ route('products.edit', $product->id) }}" class="text-blue-600">Editar</a>
+        <form action="{{ route('products.destroy', $product->id) }}" method="POST" class="inline" onsubmit="return confirm('¿Eliminar este producto?');">
+            @csrf
+            @method('DELETE')
+            <button type="submit" class="text-red-600">Eliminar</button>
+        </form>
+    @endcan
+</td>
                             </tr>
                         @empty
                             <tr>

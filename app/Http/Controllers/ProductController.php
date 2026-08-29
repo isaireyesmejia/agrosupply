@@ -6,12 +6,22 @@ use App\Services\ProductService;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 
-class ProductController extends Controller
+class ProductController extends Controller implements HasMiddleware
 {
     public function __construct(
         protected ProductService $productService
     ) {}
+
+    public static function middleware(): array
+    {
+        return [
+            new Middleware('permission:products.view', only: ['index', 'show']),
+            new Middleware('permission:products.manage', only: ['create', 'store', 'edit', 'update', 'destroy']),
+        ];
+    }
 
     public function index(): View
     {
