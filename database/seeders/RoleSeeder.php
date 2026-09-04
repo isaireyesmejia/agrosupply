@@ -29,5 +29,27 @@ class RoleSeeder extends Seeder
 
         $proveedor = Role::findByName('Proveedor');
         $proveedor->givePermissionTo('products.view');
+
+        // Permisos de Supplier
+        $suppliersView = Permission::firstOrCreate(['name' => 'suppliers.view']);
+        $suppliersManage = Permission::firstOrCreate(['name' => 'suppliers.manage']);
+
+        $admin->givePermissionTo([$suppliersView, $suppliersManage]);
+        $comprador->givePermissionTo([$suppliersView]);
+        $proveedor->givePermissionTo([$suppliersView]);
+
+        // Permisos de Órdenes de Compra
+        $poView = Permission::firstOrCreate(['name' => 'purchase-orders.view']);
+        $poCreate = Permission::firstOrCreate(['name' => 'purchase-orders.create']);
+        $poApprove = Permission::firstOrCreate(['name' => 'purchase-orders.approve']);
+        $poReceive = Permission::firstOrCreate(['name' => 'purchase-orders.receive']);
+        $poCancel = Permission::firstOrCreate(['name' => 'purchase-orders.cancel']);
+
+        // Administrador: todo
+        $admin->givePermissionTo([$poView, $poCreate, $poApprove, $poReceive, $poCancel]);
+
+        // Comprador: puede ver, crear y cancelar sus propias órdenes, pero no aprobar ni recibir
+        $comprador->givePermissionTo([$poView, $poCreate, $poCancel]);
+
     }
 }
